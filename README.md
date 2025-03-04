@@ -49,21 +49,21 @@ appium -v
    🔗 [Android Command Line Tools](https://developer.android.com/studio#command-tools)  
 2. **Распаковываем архив в**:
    ```
-   C:\Users\Rafae\AppData\Local\Android\Sdk\cmdline-tools\latest\
+   C:\Users\User\AppData\Local\Android\Sdk\cmdline-tools\latest\
    ```
 
 ### **1.5. Настраиваем переменные среды**
 Открываем **"Переменные среды"** (`Win + R` → `sysdm.cpl`)  
 1. В **Системных переменных** создаём:  
    - **Имя:** `ANDROID_HOME`  
-     **Значение:** `C:\Users\Rafae\AppData\Local\Android\Sdk`
+     **Значение:** `C:\Users\User\AppData\Local\Android\Sdk`
    - **Имя:** `ANDROID_SDK_ROOT`  
-     **Значение:** `C:\Users\Rafae\AppData\Local\Android\Sdk`
+     **Значение:** `C:\Users\User\AppData\Local\Android\Sdk`
 
 2. В **Path** добавляем:
    ```
-   C:\Users\Rafae\AppData\Local\Android\Sdk\cmdline-tools\latest\bin
-   C:\Users\Rafae\AppData\Local\Android\Sdk\platform-tools
+   C:\Users\User\AppData\Local\Android\Sdk\cmdline-tools\latest\bin
+   C:\Users\User\AppData\Local\Android\Sdk\platform-tools
    ```
 
 ### **1.6. Устанавливаем Android SDK через `sdkmanager`**
@@ -81,8 +81,8 @@ sdkmanager --install "platform-tools" "build-tools;34.0.0"
 
 ### **2.1. Создаём папку проекта**
 ```cmd
-mkdir D:\learn\swipe
-cd D:\learn\swipe
+mkdir C:\swipe
+cd C:\swipe
 ```
 
 ### **2.2. Устанавливаем Python и создаём виртуальное окружение**
@@ -129,7 +129,7 @@ appium server
 ---
 
 ## **4. Пишем автоматизированный скрипт**
-Создаём файл `install_instagram.py` в `D:\learn\swipe` и вставляем код:
+Создаём файл test_name.py:
 
 ```python
 from appium import webdriver
@@ -142,39 +142,14 @@ options = UiAutomator2Options()
 options.platform_name = "Android"
 options.device_name = "RZ8M820SRYL"
 options.automation_name = "UiAutomator2"
-options.app_package = "com.android.vending"
-options.app_activity = ".AssetBrowserActivity"
 
 # Подключаемся к Appium
 driver = webdriver.Remote("http://localhost:4723", options=options)
 time.sleep(5)
 
-print("✅ Открыли Google Play, ищем кнопку 'Поиск'...")
+# Прописываем дествия
 
-# Ищем и нажимаем на "Поиск приложений и игр"
-search_button = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Поиск приложений и игр")')
-search_button.click()
-time.sleep(2)
-
-print("✅ Поле поиска открыто, вводим 'Instagram'.")
-
-# Вводим "Instagram"
-search_input = driver.find_element(AppiumBy.CLASS_NAME, "android.widget.EditText")
-search_input.send_keys("Instagram")
-time.sleep(1)
-
-# Нажимаем "Enter"
-driver.press_keycode(66)  # 66 = ENTER
-time.sleep(5)
-
-print("✅ Ищем кнопку 'Установить'.")
-
-# Нажимаем кнопку "Установить"
-install_button = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Установить")')
-install_button.click()
-time.sleep(30)
-
-print("✅ Instagram установлен!")
+print("✅")
 driver.quit()
 ```
 
@@ -182,7 +157,7 @@ driver.quit()
 
 ## **5. Запускаем тест**
 ```cmd
-python install_instagram.py
+python test_name.py
 ```
 ✅ **Appium сам откроет Google Play, найдёт Instagram и установит его!** 🚀  
 
